@@ -1,6 +1,6 @@
 # SPEC-DRIVEN DEVELOPMENT WORKSHOP
 
-## Building a Number Guessing Game Python with GitHub Spec Kit
+## Building a Number Guessing Game in Python with GitHub Spec Kit
 
 ### Python 3.14+ Edition
 
@@ -106,8 +106,9 @@ Open a terminal and run the following to create a new Python project:
 mkdir number-guessing-game
 cd number-guessing-game
 uv init --app --python 3.14
-mkdir -p src/game tests
-touch src/game/__init__.py
+mkdir tests
+touch tests/__init__.py
+touch tests/test_main.py
 ```
 
 > **💡 What each flag does**
@@ -118,12 +119,12 @@ uv will produce this structure:
 
 ```
 number-guessing-game/
+├── .python-version
 ├── pyproject.toml
-├── src/
-│   └── game/
-│       ├── __init__.py
-│       └── main.py
+├── README.md
+├── main.py
 └── tests/
+    ├── __init__.py
     └── test_main.py
 ```
 
@@ -158,9 +159,10 @@ number-guessing-game/
 │       └── tasks-template.md
 ├── CLAUDE.md                      ← read by Claude Code automatically
 ├── pyproject.toml
-└── src/
-    └── game/
-        └── ...python source tree
+├── main.py
+└── tests/
+    ├── __init__.py
+    └── test_main.py
 ```
 
 > **💡 What specify actually does**
@@ -203,7 +205,7 @@ Your agent will create or update .specify/memory/constitution.md. This file is r
 
 # Part 3 — Writing the Specification
 
-Now you describe what you want to build. The key rule at this stage: describe WHAT and WHY, not HOW. No technology choices yet. No mention of Java, Gradle, or class names.
+Now you describe what you want to build. The key rule at this stage: describe WHAT and WHY, not HOW. No technology choices yet. No mention of Python frameworks, module names, or implementation details.
 
 ## Run /speckit-specify
 
@@ -297,10 +299,9 @@ Build this using Python 3.14+ with a uv project structure.
 The application is a command-line tool with no external dependencies
 beyond the Python standard library.
 The entry point must support interactive stdin so the game is fully
-playable via 'uv run python -m game'.
+playable via 'uv run python main.py'.
 Use pytest for unit tests.
-Module: game
-Entry point: src/game/main.py with a main() function.
+Entry point: main.py with a main() function.
 Keep the design simple: one module per responsibility.
 ```
 
@@ -316,7 +317,7 @@ Your agent will produce several planning artifacts in the feature directory:
 ```
 
 > **💡 How stdin gets handled**
-> Because you explicitly mentioned interactive stdin via 'uv run python -m game' in the plan prompt,
+> Because you explicitly mentioned interactive stdin via 'uv run python main.py' in the plan prompt,
 > the agent will implement the entry point using standard input() calls.
 > You do not need to configure anything manually.
 > Verify it appears in plan.md before running /speckit-tasks.
@@ -370,7 +371,7 @@ A well-generated tasks.md for the guessing game should contain tasks grouped by 
 - [ ] T009: Write pytest tests for invalid input cases
 
 ## User Story 5: Game loop
-- [ ] T010: Implement main game loop in src/game/main.py
+- [ ] T010: Implement main game loop in main.py
 - [ ] T011: Manual end-to-end test
 ```
 
@@ -395,12 +396,12 @@ In your agent's chat interface, type:
 /speckit-implement
 ```
 
-Your agent will validate that all required artifacts exist (constitution, spec, plan, tasks), then execute the tasks in order. It will write Java source files, update build.gradle if needed, and write JUnit tests.
+Your agent will validate that all required artifacts exist (constitution, spec, plan, tasks), then execute the tasks in order. It will write Python source files, update pyproject.toml if needed, and write pytest tests.
 
 ## What to expect during implementation
 
 - The agent executes tasks sequentially, marking each [x] as it completes it.
-- It may run Gradle commands (./gradlew build, ./gradlew test) to verify its work.
+- It may run uv commands (uv run pytest, uv run python main.py) to verify its work.
 - It will ask you questions if it encounters ambiguities not covered by the spec.
 - If a task fails, it will attempt to fix the issue before continuing.
 
@@ -420,7 +421,7 @@ uv run pytest
 Then run the game:
 
 ```
-uv run python -m game
+uv run python main.py
 ```
 
 Play a full game. If you find a bug or a missing behaviour, check the spec to see if it was covered. If it was covered and the agent missed it, report it back to the agent with a reference to the spec section. If it was not covered, that is a gap in your original spec — a good learning moment.
