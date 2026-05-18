@@ -1,8 +1,8 @@
 # SPEC-DRIVEN DEVELOPMENT WORKSHOP
 
-## Building a Number Guessing Game Java with GitHub Spec Kit
+## Building a Number Guessing Game in Java with GitHub Spec Kit
 
-### Java 25 + Gradle 9 Edition
+### Java 21 + Maven 3.9 Edition
 
 *A beginner-friendly, hands-on workshop for learning spec-first development from scratch using the real GitHub Spec Kit workflow.*
 
@@ -16,30 +16,30 @@ Welcome to this spec-driven development workshop! You will learn how to build so
 
 GitHub Spec Kit (github.com/github/spec-kit) is an open-source toolkit that structures how you work with an AI coding agent. It is NOT a test runner or a code validator. It works by bootstrapping a set of template files and slash commands into your project, which your AI agent then reads and follows to guide you through a structured SDD workflow.
 
-The specify CLI (the command-line tool included in Spec Kit) does one thing: it copies the right template files and slash commands into your project folder for the AI agent you have chosen. After that, all interaction happens through your AI agent.
+The `specify` CLI (the command-line tool included in Spec Kit) does one thing: it copies the right template files and slash commands into your project folder for the AI agent you have chosen. After that, all interaction happens through your AI agent.
 
 ## The real Spec Kit workflow
 
-| Command | Purpose |
-|---|---|
-| Step 0 | specify init — bootstrap the project (run once) |
-| Step 1 | /speckit-constitution — define project principles |
-| Step 2 | /speckit-specify — describe what to build (no tech details yet) |
-| Step 3 | /speckit-clarify — optional: refine ambiguities before planning |
-| Step 4 | /speckit-plan — choose the tech stack and architecture |
-| Step 5 | /speckit-tasks — break the plan into actionable tasks |
-| Step 6 | /speckit-implement — have the AI agent execute the tasks |
+| Step | Command | Purpose |
+| --- | --- | --- |
+| Step 0 | `specify init` | Bootstrap the project (run once) |
+| Step 1 | `/speckit-constitution` | Define project principles |
+| Step 2 | `/speckit-specify` | Describe what to build (no tech details yet) |
+| Step 3 | `/speckit-clarify` | Optional: refine ambiguities before planning |
+| Step 4 | `/speckit-plan` | Choose the tech stack and architecture |
+| Step 5 | `/speckit-tasks` | Break the plan into actionable tasks |
+| Step 6 | `/speckit-implement` | Have the AI agent execute the tasks |
 
 > **⚠️ Command naming differs by AI agent**
-> Claude Code uses hyphen notation:   /speckit-constitution, /speckit-specify, /speckit-plan ...
-> GitHub Copilot / Gemini CLI use dot notation:  /speckit.constitution, /speckit.specify ...
+> Claude Code uses hyphen notation: `/speckit-constitution`, `/speckit-specify`, `/speckit-plan` …
+> GitHub Copilot / Gemini CLI use dot notation: `/speckit.constitution`, `/speckit.specify` …
 > This workshop targets Claude Code. All commands shown use hyphen notation.
 > These commands are typed into the agent's chat interface — NOT into the terminal.
-> The specify CLI (terminal) is only used once, to initialise the project.
+> The `specify` CLI (terminal) is only used once, to initialise the project.
 
 ## What you will build
 
-You will build a Number Guessing Game — a simple command-line application where the program picks a secret random number between 1 and 100, the player guesses, and the program responds with 'Too high', 'Too low', or 'Correct!'. The game reports how many attempts it took to win.
+You will build a Number Guessing Game — a simple command-line application where the program picks a secret random number between 1 and 100, the player guesses, and the program responds with "Too high", "Too low", or "Correct!". The game reports how many attempts it took to win.
 
 This project is intentionally tiny. The goal is to practise the SDD workflow end-to-end, not to build a complex application.
 
@@ -50,111 +50,153 @@ This project is intentionally tiny. The goal is to practise the SDD workflow end
 Before starting, make sure the following tools are installed on your machine:
 
 | Tool | Notes |
-|---|---|
-| Java JDK 25 | LTS release. Any distribution works: OpenJDK, Temurin, Amazon Corretto. |
-| Gradle 9 | Can be used via the Gradle Wrapper — no global install strictly required. |
-| Python 3.11+ | Required by the specify CLI. Download from python.org. |
-| uv | Python package manager by Astral. Used to install specify. See install commands below. |
-| Git | Required by specify init to initialise a repository. |
+| --- | --- |
+| Java JDK 21 | LTS release. Any distribution works: OpenJDK, Temurin, Amazon Corretto. |
+| Maven 3.9+ | Install via your OS package manager, SDKMAN, or download from maven.apache.org. |
+| Python 3.11+ | Required by the `specify` CLI. Download from python.org. |
+| uv | Python package manager by Astral. Used to install `specify`. See install commands below. |
+| Git | Required by `specify init` to initialise a repository. |
 | An AI agent | Claude Code is recommended for this workshop. Others: GitHub Copilot, Gemini CLI, Cursor. |
 
 ## Installing uv
 
-uv is not included in any operating system and must be installed separately before you can install specify.
+`uv` is not included in any operating system and must be installed separately before you can install `specify`.
 
 macOS / Linux:
 
-```
+```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 Windows (PowerShell):
 
-```
+```powershell
 irm https://astral.sh/uv/install.ps1 | iex
 ```
 
 ## Installing specify
 
-Once uv is installed, install the specify CLI by pinning to the latest stable release (replace vX.Y.Z with the current tag from github.com/github/spec-kit/releases):
+Once `uv` is installed, install the `specify` CLI by pinning to the latest stable release (replace `vX.Y.Z` with the current tag from github.com/github/spec-kit/releases):
 
-```
+```bash
 uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@vX.Y.Z
 ```
 
 Or install from main (may include unreleased changes):
 
-```
+```bash
 uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 ```
 
 ## Verification commands
 
 > **💡 Tip — verify your tools before the workshop starts**
-> java -version          (expect: openjdk 25...)
-> gradle --version       (expect: Gradle 9...)
-> python --version       (expect: Python 3.11 or higher)
-> uv --version           (expect: uv 0.x.x...)
-> specify --version      (expect: Spec Kit version number)
-> git --version          (expect: git version 2.x...)
+> ```
+> java -version        # expect: openjdk 21...
+> mvn --version        # expect: Apache Maven 3.9...
+> python --version     # expect: Python 3.11 or higher
+> uv --version         # expect: uv 0.x.x...
+> specify --version    # expect: Spec Kit version number
+> git --version        # expect: git version 2.x...
+> ```
 
 ---
 
 # Part 1 — Initialising the Project
 
-## Step 1: Create a Gradle project
+## Step 1: Create a Maven project from an Archetype
 
-Open a terminal and run the following to create a new Gradle project:
+Open a terminal and run the following to generate a new Maven project using the standard `maven-archetype-quickstart` archetype in batch (non-interactive) mode:
 
+```bash
+mvn archetype:generate \
+  -DarchetypeGroupId=org.apache.maven.archetypes \
+  -DarchetypeArtifactId=maven-archetype-quickstart \
+  -DarchetypeVersion=1.5 \
+  -DgroupId=com.workshop.game \
+  -DartifactId=number-guessing-game \
+  -Dversion=1.0-SNAPSHOT \
+  -Dpackage=com.workshop.game \
+  -DjavaCompilerVersion=21 \
+  -DjunitVersion=5.11.0 \
+  -DinteractiveMode=false
 ```
-mkdir number-guessing-game
+
+Then enter the generated project directory:
+
+```bash
 cd number-guessing-game
-gradle init \
-  --type java-application \
-  --dsl groovy \
-  --test-framework junit-jupiter \
-  --project-name number-guessing-game \
-  --package com.workshop.game \
-  --java-version 25 \
-  --no-split-project \
-  --incubating
 ```
 
-> **💡 What each flag does**
-> --java-version 25     → sets the Java target version, silences the interactive version question.
-> --no-split-project    → selects single application structure (option 1), no prompt shown.
-> --incubating          → opts into new APIs, silences the incubating question.
->
-> ⚠️  Gradle 9.0.0 officially supports Java up to version 24. If --java-version 25 fails,
->    check your exact Gradle 9 patch version. Use --java-version 21 as a safe fallback.
+> **💡 What each parameter does**
+> `-DarchetypeArtifactId=maven-archetype-quickstart` → selects the standard archetype for a simple Java application with JUnit.
+> `-DarchetypeVersion=1.5` → pins to the latest stable release of the archetype (adds JUnit 5 by default).
+> `-DjavaCompilerVersion=21` → archetype-specific property that sets `<maven.compiler.release>` in the generated POM. The archetype defaults to `17` if this is not supplied — which is why you must pass it explicitly.
+> `-DjunitVersion=5.11.0` → archetype-specific property that pins the JUnit BOM version in the generated POM. Optional but recommended to keep builds reproducible.
+> `-DgroupId` → the Maven group ID and base Java package.
+> `-DartifactId` → the project name and output directory name.
+> `-DinteractiveMode=false` → suppresses all interactive prompts; the command runs fully unattended.
 
-Gradle will produce this structure:
+Maven will produce this structure:
 
 ```
 number-guessing-game/
-├── app/
-│   ├── build.gradle
-│   └── src/
-│       ├── main/java/com/workshop/game/App.java
-│       └── test/java/com/workshop/game/AppTest.java
-├── gradlew
-├── gradlew.bat
-└── settings.gradle
+├── pom.xml
+└── src/
+    ├── main/
+    │   └── java/
+    │       └── com/workshop/game/
+    │           └── App.java
+    └── test/
+        └── java/
+            └── com/workshop/game/
+                AppTest.java
 ```
+
+### Add the exec plugin to the POM
+
+Because you passed `-DjavaCompilerVersion=21`, the generated `pom.xml` already contains `<maven.compiler.release>21</maven.compiler.release>` — no manual editing of the compiler property is needed.
+
+The one thing the archetype does not include is the `exec-maven-plugin`, which is required to run the game interactively. Open `pom.xml` and add the following plugin inside the existing `<pluginManagement><plugins>` block:
+
+```xml
+<!-- Run the application interactively with: mvn exec:java -->
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>exec-maven-plugin</artifactId>
+  <version>3.3.0</version>
+  <configuration>
+    <mainClass>com.workshop.game.App</mainClass>
+  </configuration>
+</plugin>
+```
+
+> **⚠️ Interactive stdin with `mvn exec:java`**
+> The `exec-maven-plugin` runs the application in the same JVM process as Maven. This means `System.in` is connected to the terminal by default — no extra configuration is needed to play the game interactively via `mvn exec:java`.
+
+### Verify the project builds
+
+Before continuing, confirm the scaffold compiles and the placeholder test passes:
+
+```bash
+mvn test
+```
+
+You should see `BUILD SUCCESS`. The archetype's placeholder `AppTest` simply asserts `true`, so this is a smoke test only — it confirms Java, Maven, and your POM are all working.
 
 ## Step 2: Initialise Spec Kit
 
-From inside your project directory, run specify init targeting Claude Code (or replace 'claude' with your agent of choice):
+From inside your project directory, run `specify init` targeting Claude Code (or replace `claude` with your agent of choice):
 
-```
+```bash
 specify init . --integration claude
 ```
 
-specify will ask which integration to use if you do not pass --integration. It then copies template files and slash command definitions into your project. You should see a new .specify directory and a CLAUDE.md file (or equivalent for your agent).
+`specify` will ask which integration to use if you do not pass `--integration`. It then copies template files and slash command definitions into your project. You should see a new `.specify` directory and a `CLAUDE.md` file (or equivalent for your agent).
 
 > **⚠️ Deprecation notice**
-> The --ai flag is deprecated and will be removed in version 1.0.0 or later.
-> Always use --integration instead:   specify init . --integration claude
+> The `--ai` flag is deprecated and will be removed in version 1.0.0 or later.
+> Always use `--integration` instead: `specify init . --integration claude`
 
 After initialisation your project tree will look like this:
 
@@ -172,14 +214,14 @@ number-guessing-game/
 │       ├── plan-template.md
 │       └── tasks-template.md
 ├── CLAUDE.md                      ← read by Claude Code automatically
-├── app/
-│   └── ...gradle source tree
-├── gradlew
-└── settings.gradle
+├── pom.xml
+└── src/
+    ├── main/java/com/workshop/game/App.java
+    └── test/java/com/workshop/game/AppTest.java
 ```
 
-> **💡 What specify actually does**
-> The specify CLI copies template files and slash command definitions into your project.
+> **💡 What `specify` actually does**
+> The `specify` CLI copies template files and slash command definitions into your project.
 > It does NOT validate your code. It does NOT run tests.
 > Once initialised, all further work happens through your AI agent's chat interface.
 
@@ -191,7 +233,7 @@ The first step in the Spec Kit workflow is establishing a constitution — a set
 
 ## Open your AI agent
 
-Open Claude Code (or your chosen agent) in the project directory. You should see the /speckit-* slash commands available. If you do not, check that specify init completed successfully and re-run it if needed.
+Open Claude Code (or your chosen agent) in the project directory. You should see the `/speckit-*` slash commands available. If you do not, check that `specify init` completed successfully and re-run it if needed.
 
 ## Run /speckit-constitution
 
@@ -203,10 +245,10 @@ In your agent's chat interface, type:
 Create principles for a beginner Java workshop project.
 Focus on: code simplicity over cleverness, meaningful method names,
 unit tests for all business logic, no external dependencies beyond
-the JDK and JUnit 5, Gradle 9 as the build tool, Java 25 LTS.
+the JDK and JUnit 5, Maven 3.9 as the build tool, Java 21 LTS.
 ```
 
-Your agent will create or update .specify/memory/constitution.md. This file is referenced automatically in every subsequent step. Review it and adjust if anything looks wrong.
+Your agent will create or update `.specify/memory/constitution.md`. This file is referenced automatically in every subsequent step. Review it and adjust if anything looks wrong.
 
 > **📝 Why this matters**
 > The constitution is the only place to set rules that apply to the whole project.
@@ -218,7 +260,7 @@ Your agent will create or update .specify/memory/constitution.md. This file is r
 
 # Part 3 — Writing the Specification
 
-Now you describe what you want to build. The key rule at this stage: describe WHAT and WHY, not HOW. No technology choices yet. No mention of Java, Gradle, or class names.
+Now you describe what you want to build. The key rule at this stage: describe WHAT and WHY, not HOW. No technology choices yet. No mention of Java, Maven, or class names.
 
 ## Run /speckit-specify
 
@@ -245,13 +287,13 @@ types guesses directly into the running process and receives immediate
 feedback without any additional tooling or configuration.
 ```
 
-Your agent will generate a spec.md file inside a new feature directory under .specify/specs/, for example:
+Your agent will generate a `spec.md` file inside a new feature directory under `.specify/specs/`, for example:
 
 ```
 .specify/specs/001-number-guessing-game/spec.md
 ```
 
-The spec.md will contain user stories, functional requirements, and acceptance criteria — all derived from your prompt. Read it carefully. This is your contract for the rest of the workshop.
+The `spec.md` will contain user stories, functional requirements, and acceptance criteria — all derived from your prompt. Read it carefully. This is your contract for the rest of the workshop.
 
 ## Reviewing the spec
 
@@ -261,10 +303,10 @@ Before moving on, check the spec for:
 - Is there anything in the spec you did not ask for? (Agents can be over-eager.)
 - Are the acceptance criteria testable — i.e. can you tell whether they pass or fail?
 
-If anything is missing or wrong, tell your agent directly in plain language and ask it to update spec.md. You do not need to use a slash command for this — free-form feedback works fine at this stage.
+If anything is missing or wrong, tell your agent directly in plain language and ask it to update `spec.md`. You do not need to use a slash command for this — free-form feedback works fine at this stage.
 
 > **⚠️ Do not skip the review**
-> Everything downstream — the plan, the tasks, and the implementation — is derived from spec.md.
+> Everything downstream — the plan, the tasks, and the implementation — is derived from `spec.md`.
 > Errors in the spec will propagate through all subsequent steps.
 > This review is the cheapest point to fix mistakes.
 
@@ -285,13 +327,13 @@ In your agent's chat interface, type:
 Your agent will ask targeted questions about areas in the spec that are underspecified. For the guessing game, typical questions might include:
 
 - Should the game be replayable (play again after winning)?
-- What exactly should happen when the player types 'abc' instead of a number?
+- What exactly should happen when the player types `abc` instead of a number?
 - Should guesses of 0 or negative numbers be treated the same as out-of-range numbers?
 
 Answer each question. The agent will record the answers in a Clarifications section of the spec. These answers become part of the binding specification.
 
 > **💡 When to skip this step**
-> For a tiny workshop project you may choose to skip /speckit-clarify.
+> For a tiny workshop project you may choose to skip `/speckit-clarify`.
 > In a real project, skipping it is a common cause of expensive rework.
 > The rule of thumb: if you are unsure about any edge case, run clarify.
 
@@ -308,13 +350,14 @@ In your agent's chat interface, type:
 ```
 /speckit-plan
 
-Build this using Java 25 with a Gradle 9 project structure.
+Build this using Java 21 with a Maven 3.9 project structure
+(already scaffolded via maven-archetype-quickstart 1.5).
 The application is a command-line tool with no external dependencies
 beyond the JDK standard library.
-The Gradle run task must support interactive stdin so the game is fully
-playable via ./gradlew run — configure standardInput = System.in in the
-run task block inside app/build.gradle.
-Use JUnit 5 for unit tests.
+The application is run interactively via: mvn exec:java
+  (using the exec-maven-plugin; System.in is connected to the terminal
+  automatically — no extra configuration required).
+Use JUnit 5 for unit tests (run via: mvn test).
 Package: com.workshop.game
 Entry point: App.java with a main() method.
 Keep the design simple: one class per responsibility.
@@ -331,13 +374,7 @@ Your agent will produce several planning artifacts in the feature directory:
 └── quickstart.md    ← how to run the project
 ```
 
-> **💡 How stdin gets handled**
-> Because you explicitly mentioned interactive stdin via ./gradlew run in the plan prompt,
-> the agent will add tasks.named('run') { standardInput = System.in } to app/build.gradle.
-> You do not need to add this manually.
-> Verify it appears in plan.md before running /speckit-tasks.
-
-Review plan.md and data-model.md. Key things to check:
+Review `plan.md` and `data-model.md`. Key things to check:
 
 - Does the class design match your constitution's simplicity principle?
 - Are there any frameworks or dependencies you did not ask for?
@@ -359,13 +396,13 @@ In your agent's chat interface, type:
 /speckit-tasks
 ```
 
-Your agent will generate a tasks.md file:
+Your agent will generate a `tasks.md` file:
 
 ```
 .specify/specs/001-number-guessing-game/tasks.md
 ```
 
-A well-generated tasks.md for the guessing game should contain tasks grouped by user story, for example:
+A well-generated `tasks.md` for the guessing game should contain tasks grouped by user story, for example:
 
 ```
 ## User Story 1: Secret number generation
@@ -390,12 +427,12 @@ A well-generated tasks.md for the guessing game should contain tasks grouped by 
 - [ ] T011: Manual end-to-end test
 ```
 
-Review tasks.md before proceeding. Verify that every acceptance criterion in spec.md is covered by at least one task. If something is missing, tell your agent and ask it to add the missing tasks.
+Review `tasks.md` before proceeding. Verify that every acceptance criterion in `spec.md` is covered by at least one task. If something is missing, tell your agent and ask it to add the missing tasks.
 
 > **📝 Tasks are the last checkpoint before code is written**
-> Once you run /speckit-implement, the agent starts executing tasks.
+> Once you run `/speckit-implement`, the agent starts executing tasks.
 > Changes after implementation begins are more expensive.
-> Take your time reviewing tasks.md — it is worth it.
+> Take your time reviewing `tasks.md` — it is worth it.
 
 ---
 
@@ -411,32 +448,32 @@ In your agent's chat interface, type:
 /speckit-implement
 ```
 
-Your agent will validate that all required artifacts exist (constitution, spec, plan, tasks), then execute the tasks in order. It will write Java source files, update build.gradle if needed, and write JUnit tests.
+Your agent will validate that all required artifacts exist (constitution, spec, plan, tasks), then execute the tasks in order. It will write Java source files, update `pom.xml` if needed, and write JUnit 5 tests.
 
 ## What to expect during implementation
 
-- The agent executes tasks sequentially, marking each [x] as it completes it.
-- It may run Gradle commands (./gradlew build, ./gradlew test) to verify its work.
+- The agent executes tasks sequentially, marking each `[x]` as it completes it.
+- It may run Maven commands (`mvn compile`, `mvn test`) to verify its work.
 - It will ask you questions if it encounters ambiguities not covered by the spec.
 - If a task fails, it will attempt to fix the issue before continuing.
 
 > **⚠️ Make sure the required tools are installed**
-> The agent will run local CLI commands: java, ./gradlew, etc.
-> If Java 25 or Gradle 9 are not installed, the agent will fail during compilation.
-> Run 'java -version' and 'gradle --version' before starting.
+> The agent will run local CLI commands: `java`, `mvn`, etc.
+> If Java 21 or Maven 3.9 are not installed, the agent will fail during compilation.
+> Run `java -version` and `mvn --version` before starting.
 
 ## After implementation
 
 Once the agent completes all tasks, run the tests yourself to confirm everything passes:
 
-```
-./gradlew test
+```bash
+mvn test
 ```
 
 Then run the game:
 
-```
-./gradlew run
+```bash
+mvn exec:java
 ```
 
 Play a full game. If you find a bug or a missing behaviour, check the spec to see if it was covered. If it was covered and the agent missed it, report it back to the agent with a reference to the spec section. If it was not covered, that is a gap in your original spec — a good learning moment.
@@ -460,43 +497,44 @@ The core discipline is the separation between WHAT (spec) and HOW (plan + tasks)
 ## Common mistakes to avoid
 
 | Mistake | Why it matters |
-|---|---|
-| Putting tech details in /speckit-specify | The spec must be technology-agnostic. Tech belongs in /speckit-plan. |
-| Skipping the spec review | Errors in spec.md propagate through every subsequent step. |
-| Skipping the tasks review | Tasks.md is the last cheap checkpoint before code is written. |
+| --- | --- |
+| Putting tech details in `/speckit-specify` | The spec must be technology-agnostic. Tech belongs in `/speckit-plan`. |
+| Skipping the spec review | Errors in `spec.md` propagate through every subsequent step. |
+| Skipping the tasks review | `tasks.md` is the last cheap checkpoint before code is written. |
 | Treating the first attempt as final | Spec Kit is iterative. Push back on the agent when output is wrong. |
-| Not reading constitution.md | The agent follows it. If you have not read it, you may not notice when it is violated. |
+| Not reading `constitution.md` | The agent follows it. If you have not read it, you may not notice when it is violated. |
 
 ## Exercises
 
 ### Exercise 1 — Difficulty levels (Easy)
 
-Add a new specification for difficulty levels. Run /speckit-specify again with: 'Add three difficulty levels: Easy (1–50), Medium (1–100, current), Hard (1–200). The player chooses at the start.' Then run /speckit-plan, /speckit-tasks, and /speckit-implement for this new feature.
+Add a new specification for difficulty levels. Run `/speckit-specify` again with: "Add three difficulty levels: Easy (1–50), Medium (1–100, current), Hard (1–200). The player chooses at the start." Then run `/speckit-plan`, `/speckit-tasks`, and `/speckit-implement` for this new feature.
 
 ### Exercise 2 — Replay (Medium)
 
-Specify a 'play again' feature. After a win, the game should ask the player if they want to play again. If yes, start a new game. If no, show the player's best score (fewest attempts across all games in the session) and exit.
+Specify a "play again" feature. After a win, the game should ask the player if they want to play again. If yes, start a new game. If no, show the player's best score (fewest attempts across all games in the session) and exit.
 
 ### Exercise 3 — Audit the spec (Hard)
 
-Read spec.md carefully and find at least two edge cases that are NOT covered. Add them to the spec manually, then run /speckit-tasks again and verify the new tasks cover your additions. Discuss: what would have happened during implementation if those edge cases had not been specified?
+Read `spec.md` carefully and find at least two edge cases that are NOT covered. Add them to the spec manually, then run `/speckit-tasks` again and verify the new tasks cover your additions. Discuss: what would have happened during implementation if those edge cases had not been specified?
 
 ---
 
 # Summary
 
 | Command | What it does |
-|---|---|
-| specify init | Bootstraps the project once. Copies templates and slash commands. |
-| /speckit-constitution | Sets binding rules for the AI agent across the whole project. |
-| /speckit-specify | Defines what to build. Technology-agnostic. Produces spec.md. |
-| /speckit-clarify | Resolves ambiguities before planning. Reduces rework. |
-| /speckit-plan | Introduces the tech stack. Produces plan.md, data-model.md, research.md. |
-| /speckit-tasks | Breaks the plan into ordered tasks. Produces tasks.md. |
-| /speckit-implement | Executes the tasks. Writes code, tests, and build configuration. |
+| --- | --- |
+| `specify init` | Bootstraps the project once. Copies templates and slash commands. |
+| `/speckit-constitution` | Sets binding rules for the AI agent across the whole project. |
+| `/speckit-specify` | Defines what to build. Technology-agnostic. Produces `spec.md`. |
+| `/speckit-clarify` | Resolves ambiguities before planning. Reduces rework. |
+| `/speckit-plan` | Introduces the tech stack. Produces `plan.md`, `data-model.md`, `research.md`. |
+| `/speckit-tasks` | Breaks the plan into ordered tasks. Produces `tasks.md`. |
+| `/speckit-implement` | Executes the tasks. Writes code, tests, and build configuration. |
 
 > **📚 Further reading**
-> GitHub Spec Kit repository:  github.com/github/spec-kit
-> Installation guide:          github.com/github/spec-kit/blob/main/docs/installation.md
-> Full SDD methodology:        github.com/github/spec-kit/blob/main/spec-driven.md
-> Community walkthroughs:      see the README on the repository
+> GitHub Spec Kit repository: github.com/github/spec-kit
+> Installation guide: github.com/github/spec-kit/blob/main/docs/installation.md
+> Full SDD methodology: github.com/github/spec-kit/blob/main/spec-driven.md
+> Maven Archetype Quickstart: maven.apache.org/archetypes/maven-archetype-quickstart/
+> exec-maven-plugin: www.mojohaus.org/exec-maven-plugin/
