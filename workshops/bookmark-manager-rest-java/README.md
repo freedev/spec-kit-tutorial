@@ -4,6 +4,8 @@
 
 ### Quarkus 3.31 + Java 25 + Gradle 9 Edition
 
+**AI Tool:** Claude Code
+
 *A hands-on workshop for practising spec-first development on a realistic backend service — REST endpoints, relational persistence, migrations, validation, structured errors, and integration tests.*
 
 ---

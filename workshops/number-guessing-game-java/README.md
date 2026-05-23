@@ -4,6 +4,8 @@
 
 ### Java 21 + Maven 3.9 Edition
 
+**AI Tool:** Claude Code
+
 *A beginner-friendly, hands-on workshop for learning spec-first development from scratch using the real GitHub Spec Kit workflow.*
 
 ---

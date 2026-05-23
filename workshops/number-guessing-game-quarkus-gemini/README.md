@@ -4,6 +4,8 @@
 
 ### Quarkus + Vanilla HTML/JS Edition
 
+**AI Tool:** Google Gemini / GitHub Copilot
+
 *A beginner-friendly, hands-on workshop for learning spec-first development from scratch using the real GitHub Spec Kit workflow.*
 
 ---

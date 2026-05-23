@@ -4,6 +4,8 @@
 
 ### Python 3.14+ Edition
 
+**AI Tool:** Claude Code
+
 *A beginner-friendly, hands-on workshop for learning spec-first development from scratch using the real GitHub Spec Kit workflow.*
 
 ---
