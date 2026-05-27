@@ -1,12 +1,12 @@
 # SPEC-DRIVEN DEVELOPMENT WORKSHOP
 
-## Building a Number Guessing Game Web Application with GitHub Spec Kit
+## Building a Number Guessing Game Web Application with [GitHub Spec Kit](https://github.com/github/spec-kit)
 
 ### Quarkus + Vanilla HTML/JS Edition
 
 **AI Tool:** Google Gemini / GitHub Copilot
 
-*A beginner-friendly, hands-on workshop for learning spec-first development from scratch using the real GitHub Spec Kit workflow.*
+*A beginner-friendly, hands-on workshop for learning spec-first development from scratch using the real [GitHub Spec Kit](https://github.com/github/spec-kit) workflow.*
 
 ---
 
@@ -16,7 +16,7 @@ Welcome to this spec-driven development workshop! You will learn how to build so
 
 ## What is GitHub Spec Kit?
 
-GitHub Spec Kit (github.com/github/spec-kit) is an open-source toolkit that structures how you work with an AI coding agent. It is NOT a test runner or a code validator. It works by bootstrapping a set of template files and slash commands into your project, which your AI agent then reads and follows to guide you through a structured SDD workflow.
+[GitHub Spec Kit](https://github.com/github/spec-kit) is an open-source toolkit that structures how you work with an AI coding agent. It is NOT a test runner or a code validator. It works by bootstrapping a set of template files and slash commands into your project, which your AI agent then reads and follows to guide you through a structured SDD workflow.
 
 The specify CLI (the command-line tool included in Spec Kit) does one thing: it copies the right template files and slash commands into your project folder for the AI agent you have chosen. After that, all interaction happens through your AI agent.
 
@@ -531,8 +531,8 @@ Read `spec.md` carefully and find at least two edge cases that are NOT covered. 
 | `/speckit.implement` | Executes the tasks. Writes code, tests, and static frontend files. |
 
 > **📚 Further reading**
-> GitHub Spec Kit repository: github.com/github/spec-kit
-> Installation guide: github.com/github/spec-kit/blob/main/docs/installation.md
-> Full SDD methodology: github.com/github/spec-kit/blob/main/spec-driven.md
+> GitHub Spec Kit repository: [github.com/github/spec-kit](https://github.com/github/spec-kit)
+> Installation guide: [github.com/github/spec-kit/blob/main/docs/installation.md](https://github.com/github/spec-kit/blob/main/docs/installation.md)
+> Full SDD methodology: [github.com/github/spec-kit/blob/main/spec-driven.md](https://github.com/github/spec-kit/blob/main/spec-driven.md)
 > Quarkus getting started: quarkus.io/get-started
 > Quarkus REST extension docs: quarkus.io/guides/rest

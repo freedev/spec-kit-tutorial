@@ -1,6 +1,11 @@
+<p align="center">
+  <img src="media/logo_large.webp" alt="Spec Kit Logo" width="200" height="200">
+
+</p>
+
 # Spec Kit Workshops
 
-A collection of hands-on workshops for learning Spec-Driven Development with GitHub Spec Kit.
+A collection of hands-on workshops for learning Spec-Driven Development with [GitHub Spec Kit](https://github.com/github/spec-kit).
 
 See `docs/what-is-spec-kit.md` for an overview of Spec-Driven Development.
 

@@ -1,6 +1,6 @@
 # SPEC-DRIVEN DEVELOPMENT WORKSHOP — INTERMEDIATE
 
-## Building a Bookmark Manager REST API with GitHub Spec Kit
+## Building a Bookmark Manager REST API with [GitHub Spec Kit](https://github.com/github/spec-kit)
 
 ### Quarkus 3.31 + Java 25 + Gradle 9 Edition
 
@@ -805,9 +805,9 @@ Without touching `spec.md` or the clarifications, write a new `plan.md` targetin
 Quarkus 3.31 introduced **Panache Next**, the next generation of Panache, alongside classic Panache. This workshop deliberately uses **classic Panache** because it is what the agent's training data and the wider community know best. If you repeat this workshop in a year, consider migrating to Panache Next as a stretch exercise.
 
 > **📚 Further reading**
-> GitHub Spec Kit repository:   `github.com/github/spec-kit`
-> Spec Kit installation guide:  `github.com/github/spec-kit/blob/main/docs/installation.md`
-> Full SDD methodology:         `github.com/github/spec-kit/blob/main/spec-driven.md`
+> GitHub Spec Kit repository:   [github.com/github/spec-kit](https://github.com/github/spec-kit)
+> Spec Kit installation guide:  [github.com/github/spec-kit/blob/main/docs/installation.md](https://github.com/github/spec-kit/blob/main/docs/installation.md)
+> Full SDD methodology:         [github.com/github/spec-kit/blob/main/spec-driven.md](https://github.com/github/spec-kit/blob/main/spec-driven.md)
 > Quarkus documentation:        `quarkus.io/guides`
 > Hibernate Panache guide:      `quarkus.io/guides/hibernate-orm-panache`
 > RFC 7807 Problem Details:     `datatracker.ietf.org/doc/html/rfc7807`
